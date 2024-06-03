@@ -115,4 +115,56 @@ def matriz_corr_todas_var(df):
     plt.title('Matriz de Correlación (Variables Dummy)')
     plt.show()
 
-def 
+def preparar_data(df):
+    import pandas as pd
+    #seleccionamos las columnas categoricas y numericas y las separamos en dataframes distintos.
+    potential_categorical_from_numerical = df.select_dtypes("number").loc[:, df.select_dtypes("number").nunique() < 20]
+
+    df_categorical = pd.concat([df.select_dtypes("object"), potential_categorical_from_numerical], axis=1)
+
+    df_numerical = df.select_dtypes("number").drop(columns=potential_categorical_from_numerical.columns)
+
+    # Realizar One-Hot Encoding usando pd.get_dummies()
+    df_encoded = pd.get_dummies(df_categorical, columns=['calc', 'caec', 'mtrans'], drop_first=True)
+
+    # Convertir 'gender' a formato binario
+    df_encoded['gender'] = df_encoded['gender'].apply(lambda x: 1 if x == 'Male' else 0)
+
+    # Asegurar que las columnas binarias estén en formato correcto (0 y 1)
+    binary_columns = ['favc', 'scc', 'smoke', 'family_history']
+    for col in binary_columns:
+        df_encoded[col] = df_encoded[col].apply(lambda x: 1 if x == 'yes' else 0)
+
+    # Unimos los dos dataframes
+    df_final = pd.concat([df_encoded, df_numerical], axis=1)
+
+    return df_final
+
+def machine_learning(df_final):
+    from sklearn.model_selection import train_test_split
+    from sklearn.ensemble import RandomForestClassifier
+    from sklearn.metrics import precision_score, recall_score, f1_score
+    from sklearn.metrics import confusion_matrix
+    from sklearn.model_selection import RandomizedSearchCV
+
+    # Eliminamos la columna 'obesity_level' de los features y lo colocamos como target
+    features = df_final.drop(columns = "obesity_level")
+    target = df_final[["obesity_level"]]
+
+    # Cambiamos el dtype a integer
+    features[features.select_dtypes(include=["bool"]).columns]=features[features.select_dtypes(include=["bool"]).columns].astype(int)
+
+    #Separamos la data.
+    X_train, X_test, y_train, y_test = train_test_split(features, target, test_size = 0.30, random_state=0)
+
+    rf = RandomForestClassifier(max_depth=10)
+    rf.fit(X_train, y_train)
+    y_pred = rf.predict(X_test)
+
+    precision = precision_score(y_test, y_pred, average= "weighted") 
+    recall = recall_score(y_test, y_pred, average= "weighted") 
+    f1 = f1_score(y_test, y_pred, average= "weighted")
+    precision, recall, f1
+
+    
+

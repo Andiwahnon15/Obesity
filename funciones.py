@@ -141,11 +141,7 @@ def preparar_data(df):
     return df_final
 
 def machine_learning(df_final):
-    from sklearn.model_selection import train_test_split
     from sklearn.ensemble import RandomForestClassifier
-    from sklearn.metrics import precision_score, recall_score, f1_score
-    from sklearn.metrics import confusion_matrix
-    from sklearn.model_selection import RandomizedSearchCV
 
     # Eliminamos la columna 'obesity_level' de los features y lo colocamos como target
     features = df_final.drop(columns = "obesity_level")
@@ -154,17 +150,10 @@ def machine_learning(df_final):
     # Cambiamos el dtype a integer
     features[features.select_dtypes(include=["bool"]).columns]=features[features.select_dtypes(include=["bool"]).columns].astype(int)
 
-    #Separamos la data.
-    X_train, X_test, y_train, y_test = train_test_split(features, target, test_size = 0.30, random_state=0)
+    best_model = "max_depth=9, n_estimators=105"
 
-    rf = RandomForestClassifier(max_depth=10)
-    rf.fit(X_train, y_train)
-    y_pred = rf.predict(X_test)
+    rf = RandomForestClassifier(best_model)
+    rf.fit(features, target)
 
-    precision = precision_score(y_test, y_pred, average= "weighted") 
-    recall = recall_score(y_test, y_pred, average= "weighted") 
-    f1 = f1_score(y_test, y_pred, average= "weighted")
-    precision, recall, f1
-
-    
+    return rf 
 

@@ -1,6 +1,6 @@
 # app.py
 import streamlit as st  # Import Streamlit for creating web app
-from funciones import carga_limpieza_data, preparar_data, machine_learning
+from src.funciones import carga_limpieza_data, preparar_data, machine_learning
 
 def main():
     import pandas as pd
@@ -53,9 +53,10 @@ def main():
     temp_mtrans=np.random.choice(mtrans_options)
     df_cat_to_predict.loc[1, "mtrans"] = temp_mtrans
 
+
     ###
 
-    # # Creamos un nuevo dataframe para datos artificiales numericos
+    # Creamos un nuevo dataframe para datos artificiales numericos
     df_num_predict = pd.DataFrame(columns= df_numerical.columns)
 
     # Generamos datos aleatorios
@@ -94,3 +95,10 @@ def main():
     bmi_options= df_numerical['bmi'].unique()
     temp_bmi=np.random.choice(bmi_options)
     df_num_predict.loc[1, "bmi"] = temp_bmi
+
+    #-------------------------------------
+
+    questions = st.sidebar.multiselect('questions', options=df_cat_to_predict[
+        'gender', 'calc', 'favc', 'scc', 'smoke', 'family_history', 'caec', 'metrans'
+        ].unique(), default=df_cat_to_predict['gender', 'calc', 'favc', 'scc', 'smoke', 'family_history', 'caec', 'metrans'].unique())
+    

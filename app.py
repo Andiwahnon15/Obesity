@@ -68,40 +68,40 @@ def main():
 
     # Generamos datos aleatorios
     age_options= df_numerical['age'].unique()
-    temp_age = st.sidebar.slider('Minimum Rating', min_value=0, max_value=100, value=25, step=1)
+    temp_age = st.sidebar.slider('Age', min_value=0, max_value=100, value=25, step=1)
     df_num_predict.loc[1, "age"] = temp_age
 
     height_options= df_numerical['height'].unique()
-    temp_height = st.sidebar.slider('Minimum Rating', min_value=0, max_value=10, value=2, step=1)
+    temp_height = st.sidebar.slider('Height', min_value=0, max_value=10, value=2, step=1)
     df_num_predict.loc[1, "height"] = temp_height
 
     weight_options= df_numerical['weight'].unique()
-    temp_weight = st.sidebar.slider('Minimum Rating', min_value=0, max_value=250, value=50, step=1)
+    temp_weight = st.sidebar.slider('Weight', min_value=0, max_value=250, value=50, step=1)
     df_num_predict.loc[1, "weight"] = temp_weight
 
     fcvc_options= df_numerical['fcvc'].unique()
-    temp_fcvc = st.sidebar.slider('Minimum Rating', min_value=0, max_value=100, value=25, step=1)
+    temp_fcvc = st.sidebar.slider('Vegetables', min_value=0, max_value=20, value=5, step=1)
     df_num_predict.loc[1, "fcvc"] = temp_fcvc
 
     ncp_options= df_numerical['ncp'].unique()
-    temp_ncp = st.sidebar.slider('Minimum Rating', min_value=0, max_value=100, value=25, step=1)
+    temp_ncp = st.sidebar.slider('Meals', min_value=0, max_value=5, value=2, step=1)
     df_num_predict.loc[1, "ncp"] = temp_ncp
 
     ch2o_options= df_numerical['ch2o'].unique()
-    temp_ch2o = st.sidebar.slider('Minimum Rating', min_value=0, max_value=100, value=25, step=1)
+    temp_ch2o = st.sidebar.slider('Drink Water', min_value=0, max_value=5, value=2, step=1)
     df_num_predict.loc[1, "ch2o"] = temp_ch2o
 
     faf_options= df_numerical['faf'].unique()
-    temp_faf = st.sidebar.slider('Minimum Rating', min_value=0, max_value=100, value=25, step=1)
+    temp_faf = st.sidebar.slider('Physical Activity', min_value=0, max_value=7, value=3, step=1)
     df_num_predict.loc[1, "faf"] = temp_faf
 
     tue_options= df_numerical['tue'].unique()
-    temp_tue = st.sidebar.slider('Minimum Rating', min_value=0, max_value=100, value=25, step=1)
+    temp_tue = st.sidebar.slider(' Use Technological Devices', min_value=0, max_value=10, value=5, step=1)
     df_num_predict.loc[1, "tue"] = temp_tue
 
     bmi_options= df_numerical['bmi'].unique()
-    temp_bmi = st.sidebar.slider('Minimum Rating', min_value=0, max_value=100, value=25, step=1)
-    df_num_predict.loc[1, "bmi"] = temp_bmi
+    temp_bmi = st.sidebar.slider('Body Mass Index', min_value=0, max_value=100, value=25, step=1)
+    df_num_predict.loc[1, "bmi"] = temp_bmi DUDA
 
     """-----------------------------------------------------------------"""
 

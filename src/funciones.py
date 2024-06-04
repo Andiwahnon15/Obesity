@@ -1,9 +1,24 @@
-def carga_limpieza_data():
-    import pandas as pd
-    #Leemos la data
-    url=r'C:\Users\andre\Downloads\ObesityDataSet_raw_and_data_sinthetic.csv'
-    df=pd.read_csv(url)
+def carga_limpieza_data(yalm_path):
 
+    import pandas as pd
+    import yaml
+
+    #leemos el archivo Yaml en Python
+    try:
+        with open(yalm_path, 'r') as file:
+            config = yaml.safe_load(file)
+    except Exception as e:
+        print('Error leyendo el archivo .yaml:', e)
+        return None
+
+    #importamos los dataframes
+    try:
+        df = pd.read_csv(config['data']['df'], sep=",", header=0, low_memory=False)
+        return df
+    except Exception as e:
+        print('Error importando la data', e)
+        
+    
     #Hacemos que se vean rodas las columnas
     pd.set_option('display.max_columns', None)
 

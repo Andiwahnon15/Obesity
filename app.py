@@ -96,9 +96,13 @@ def main():
     temp_bmi=np.random.choice(bmi_options)
     df_num_predict.loc[1, "bmi"] = temp_bmi
 
-    #-------------------------------------
+    """-----------------------------------------------------------------"""
 
-    questions = st.sidebar.multiselect('questions', options=df_cat_to_predict[
-        'gender', 'calc', 'favc', 'scc', 'smoke', 'family_history', 'caec', 'metrans'
-        ].unique(), default=df_cat_to_predict['gender', 'calc', 'favc', 'scc', 'smoke', 'family_history', 'caec', 'metrans'].unique())
-    
+    gender = st.sidebar.multiselect('Gender', options=df_cat_to_predict['gender'].unique(), default=df_cat_to_predict['gender'].unique())
+    calc = st.sidebar.multiselect('Drink Alcohol', options=df_cat_to_predict['calc'].unique(), default=df_cat_to_predict['calc'].unique())
+    favc = st.sidebar.multiselect('High caloric food', options=df_cat_to_predict['favc'].unique(), default=df_cat_to_predict['favc'].unique())
+    scc = st.sidebar.multiselect('Monitor calories', options=df_cat_to_predict['scc'].unique(), default=df_cat_to_predict['scc'].unique())
+    smoke = st.sidebar.multiselect('Smoke', options=df_cat_to_predict['smoke'].unique(), default=df_cat_to_predict['smoke'].unique())
+    family_history = st.sidebar.multiselect('Family history obesity', options=df_cat_to_predict['family_history'].unique(), default=df_cat_to_predict['family_history'].unique())
+    caec = st.sidebar.multiselect('Food between meals', options=df_cat_to_predict['caec'].unique(), default=df_cat_to_predict['caec'].unique())
+    mtrans = st.sidebar.multiselect('Type of transport', options=df_cat_to_predict['mtrans'].unique(), default=df_cat_to_predict['mtrans'].unique())

@@ -102,6 +102,7 @@ def matriz_correlacion_num(df):
 def matriz_corr_todas_var(df):
     import matplotlib.pyplot as plt
     import seaborn as sns
+    import pandas as pd
     #calculamos la matriz de correlación para crear un mapa de calor que muestre la relación entre todas las variables
 
     #convertimos variables categóricas en variables dummy

@@ -23,37 +23,44 @@ def main():
     # Generamos datos aleatorios
     gender_options = df_categorical['gender'].unique()
     temp_gender = np.random.choice(gender_options)
-    df_cat_to_predict.loc[1, "gender"] = temp_gender
+    gender = st.sidebar.selectbox('Gender', options=gender_options, default=temp_gender)
+    df_cat_to_predict.loc[1, "gender"] = gender
 
     calc_options= df_categorical['calc'].unique()
     temp_calc=np.random.choice(calc_options)
-    df_cat_to_predict.loc[1, "calc"] = temp_calc
+    calc = st.sidebar.multiselect('Drink Alcohol', options=calc_options, default=temp_calc)
+    df_cat_to_predict.loc[1, "calc"] = calc
 
     favc_options= df_categorical['favc'].unique()
     temp_favc=np.random.choice(favc_options)
-    df_cat_to_predict.loc[1, "favc"] = temp_favc
+    favc = st.sidebar.multiselect('High caloric food', options=favc_options, default=temp_favc)
+    df_cat_to_predict.loc[1, "favc"] = favc
 
     scc_options= df_categorical['scc'].unique()
     temp_scc=np.random.choice(scc_options)
-    df_cat_to_predict.loc[1, "scc"] = temp_scc
+    scc = st.sidebar.multiselect('Monitor calories', options=scc_options, default=temp_scc)
+    df_cat_to_predict.loc[1, "scc"] = scc
 
     smoke_options= df_categorical['smoke'].unique()
     temp_smoke=np.random.choice(smoke_options)
-    df_cat_to_predict.loc[1, "smoke"] = temp_smoke
+    smoke = st.sidebar.multiselect('Smoke', options=smoke_options, default=temp_smoke)
+    df_cat_to_predict.loc[1, "smoke"] = smoke
 
     family_history_options= df_categorical['family_history'].unique()
     temp_family_history=np.random.choice(family_history_options)
-    df_cat_to_predict.loc[1, "family_history"] = temp_family_history
+    family_history = st.sidebar.multiselect('Family history obesity', options=family_history_options, default=temp_family_history)
+    df_cat_to_predict.loc[1, "family_history"] = family_history
 
     caec_options= df_categorical['caec'].unique()
     temp_caec=np.random.choice(caec_options)
-    df_cat_to_predict.loc[1, "caec"] = temp_caec
+    caec = st.sidebar.multiselect('Food between meals', options=caec_options, default=temp_caec)
+    df_cat_to_predict.loc[1, "caec"] = caec
 
     mtrans_options= df_categorical['mtrans'].unique()
     temp_mtrans=np.random.choice(mtrans_options)
-    df_cat_to_predict.loc[1, "mtrans"] = temp_mtrans
-
-
+    mtrans = st.sidebar.multiselect('Type of transport', options=mtrans_options, default=temp_mtrans)
+    df_cat_to_predict.loc[1, "mtrans"] = mtrans
+    
     ###
 
     # Creamos un nuevo dataframe para datos artificiales numericos
@@ -61,48 +68,44 @@ def main():
 
     # Generamos datos aleatorios
     age_options= df_numerical['age'].unique()
-    temp_age=np.random.choice(age_options)
+    temp_age = st.sidebar.slider('Minimum Rating', min_value=0, max_value=100, value=25, step=1)
     df_num_predict.loc[1, "age"] = temp_age
 
     height_options= df_numerical['height'].unique()
-    temp_height=np.random.choice(height_options)
+    temp_height = st.sidebar.slider('Minimum Rating', min_value=0, max_value=10, value=2, step=1)
     df_num_predict.loc[1, "height"] = temp_height
 
     weight_options= df_numerical['weight'].unique()
-    temp_weight=np.random.choice(weight_options)
+    temp_weight = st.sidebar.slider('Minimum Rating', min_value=0, max_value=250, value=50, step=1)
     df_num_predict.loc[1, "weight"] = temp_weight
 
     fcvc_options= df_numerical['fcvc'].unique()
-    temp_fcvc=np.random.choice(fcvc_options)
+    temp_fcvc = st.sidebar.slider('Minimum Rating', min_value=0, max_value=100, value=25, step=1)
     df_num_predict.loc[1, "fcvc"] = temp_fcvc
 
     ncp_options= df_numerical['ncp'].unique()
-    temp_ncp=np.random.choice(ncp_options)
+    temp_ncp = st.sidebar.slider('Minimum Rating', min_value=0, max_value=100, value=25, step=1)
     df_num_predict.loc[1, "ncp"] = temp_ncp
 
     ch2o_options= df_numerical['ch2o'].unique()
-    temp_ch2o=np.random.choice(ch2o_options)
+    temp_ch2o = st.sidebar.slider('Minimum Rating', min_value=0, max_value=100, value=25, step=1)
     df_num_predict.loc[1, "ch2o"] = temp_ch2o
 
     faf_options= df_numerical['faf'].unique()
-    temp_faf=np.random.choice(faf_options)
+    temp_faf = st.sidebar.slider('Minimum Rating', min_value=0, max_value=100, value=25, step=1)
     df_num_predict.loc[1, "faf"] = temp_faf
 
     tue_options= df_numerical['tue'].unique()
-    temp_tue=np.random.choice(tue_options)
+    temp_tue = st.sidebar.slider('Minimum Rating', min_value=0, max_value=100, value=25, step=1)
     df_num_predict.loc[1, "tue"] = temp_tue
 
     bmi_options= df_numerical['bmi'].unique()
-    temp_bmi=np.random.choice(bmi_options)
+    temp_bmi = st.sidebar.slider('Minimum Rating', min_value=0, max_value=100, value=25, step=1)
     df_num_predict.loc[1, "bmi"] = temp_bmi
 
     """-----------------------------------------------------------------"""
 
-    gender = st.sidebar.multiselect('Gender', options=df_cat_to_predict['gender'].unique(), default=df_cat_to_predict['gender'].unique())
-    calc = st.sidebar.multiselect('Drink Alcohol', options=df_cat_to_predict['calc'].unique(), default=df_cat_to_predict['calc'].unique())
-    favc = st.sidebar.multiselect('High caloric food', options=df_cat_to_predict['favc'].unique(), default=df_cat_to_predict['favc'].unique())
-    scc = st.sidebar.multiselect('Monitor calories', options=df_cat_to_predict['scc'].unique(), default=df_cat_to_predict['scc'].unique())
-    smoke = st.sidebar.multiselect('Smoke', options=df_cat_to_predict['smoke'].unique(), default=df_cat_to_predict['smoke'].unique())
-    family_history = st.sidebar.multiselect('Family history obesity', options=df_cat_to_predict['family_history'].unique(), default=df_cat_to_predict['family_history'].unique())
-    caec = st.sidebar.multiselect('Food between meals', options=df_cat_to_predict['caec'].unique(), default=df_cat_to_predict['caec'].unique())
-    mtrans = st.sidebar.multiselect('Type of transport', options=df_cat_to_predict['mtrans'].unique(), default=df_cat_to_predict['mtrans'].unique())
+    
+
+
+

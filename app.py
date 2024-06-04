@@ -101,7 +101,7 @@ def main():
 
     bmi_options= df_numerical['bmi'].unique()
     temp_bmi = st.sidebar.slider('Body Mass Index', min_value=0, max_value=100, value=25, step=1)
-    df_num_predict.loc[1, "bmi"] = temp_bmi DUDA
+    df_num_predict.loc[1, "bmi"] = temp_bmi #DUDA
 
     """-----------------------------------------------------------------"""
 

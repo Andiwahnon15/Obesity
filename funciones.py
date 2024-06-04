@@ -157,3 +157,35 @@ def machine_learning(df_final):
 
     return rf 
 
+def grafico_confusion(features, target):
+    from sklearn.metrics import confusion_matrix
+    # Compute the confusion matrix
+    conf_matrix = confusion_matrix(features)
+    class_names = target['obesity_level'].unique()
+    import plotly.graph_objects as go
+    # Creating a confusion matrix heatmap using Plotly Graph Objects with true class names
+    fig = go.Figure(data=go.Heatmap(
+                    z=conf_matrix,
+                    x=class_names,
+                    y=class_names,
+                    colorscale='Blues'))
+
+    # Adding annotations
+    for i in range(len(conf_matrix)):
+        for j in range(len(conf_matrix[i])):
+            fig.add_annotation(
+                x=j, y=i,
+                text=str(conf_matrix[i][j]),
+                showarrow=False,
+                font=dict(color="black", size=12)
+            )
+
+    # Updating layout for better readability
+    fig.update_layout(
+        title='Confusion Matrix',
+        xaxis_title='Predicted Label',
+        yaxis_title='True Label',
+        width=800, height=800
+    )
+
+    fig.show()

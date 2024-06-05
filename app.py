@@ -12,13 +12,14 @@ def main():
     import pandas as pd
     import numpy as np
     
-    df=carga_limpieza_data("../config.yaml")
+    df=carga_limpieza_data("config.yaml")
 
     potential_categorical_from_numerical = df.select_dtypes("number").loc[:, df.select_dtypes("number").nunique() < 20]
 
     df_categorical = pd.concat([df.select_dtypes("object"), potential_categorical_from_numerical], axis=1)
 
     df_numerical = df.select_dtypes("number").drop(columns=potential_categorical_from_numerical.columns)
+    
     #Training the model
     df_final = preparar_data(df)
     rf = machine_learning(df_final)
@@ -33,7 +34,7 @@ def main():
     st.markdown("##### Introduce your gender")
     gender_options = df_categorical['gender'].unique()
     temp_gender = np.random.choice(gender_options)
-    gender = st.selectbox('Gender', options=gender_options)
+    gender = st.selectbox('Gender', options=gender_options, index=0)
     df_cat_to_predict.loc[1, "gender"] = gender
 
     st.markdown("<hr>", unsafe_allow_html=True)
@@ -46,7 +47,7 @@ def main():
         st.markdown("##### How often do you drink alcohol?")
         calc_options = df_categorical['calc'].unique()
         temp_calc = np.random.choice(calc_options)
-        calc = st.multiselect('Alcohol', options=calc_options)
+        calc = st.selectbox('Alcohol', options=calc_options, index=0)
         df_cat_to_predict.loc[1, "calc"] = calc
 
     st.markdown("<hr>", unsafe_allow_html=True)
@@ -56,7 +57,7 @@ def main():
         st.markdown("##### Do you eat high caloric food frequently?")
         favc_options = df_categorical['favc'].unique()
         temp_favc = np.random.choice(favc_options)
-        favc = st.multiselect('High caloric food', options=favc_options)
+        favc = st.selectbox('High caloric food', options=favc_options, index=0)
         df_cat_to_predict.loc[1, "favc"] = favc
 
     #Creamos las columnas
@@ -67,7 +68,7 @@ def main():
         st.markdown("##### Do you monitor the calories you eat daily?")
         scc_options= df_categorical['scc'].unique()
         temp_scc=np.random.choice(scc_options)
-        scc = st.multiselect('Monitor calories', options=scc_options)
+        scc = st.selectbox('Monitor calories', options=scc_options, index=0)
         df_cat_to_predict.loc[1, "scc"] = scc
 
     st.markdown("<hr>", unsafe_allow_html=True)
@@ -77,7 +78,7 @@ def main():
         st.markdown("##### Do you smoke?")
         smoke_options= df_categorical['smoke'].unique()
         temp_smoke=np.random.choice(smoke_options)
-        smoke = st.multiselect('Smoke', options=smoke_options)
+        smoke = st.selectbox('Smoke', options=smoke_options, index=0)
         df_cat_to_predict.loc[1, "smoke"] = smoke
 
     #Creamos las columnas
@@ -88,7 +89,7 @@ def main():
         st.markdown("##### Your family suffers from obesity?")
         family_history_options= df_categorical['family_history'].unique()
         temp_family_history=np.random.choice(family_history_options)
-        family_history = st.multiselect('Family history obesity', options=family_history_options)
+        family_history = st.selectbox('Family history obesity', options=family_history_options, index=0)
         df_cat_to_predict.loc[1, "family_history"] = family_history
 
     st.markdown("<hr>", unsafe_allow_html=True)
@@ -98,13 +99,13 @@ def main():
         st.markdown("##### Do you eat any food between meals?")
         caec_options= df_categorical['caec'].unique()
         temp_caec=np.random.choice(caec_options)
-        caec = st.multiselect('Food between meals', options=caec_options)
+        caec = st.selectbox('Food between meals', options=caec_options, index=0)
         df_cat_to_predict.loc[1, "caec"] = caec
 
     st.markdown("##### Which transportation do you usually use?")
     mtrans_options= df_categorical['mtrans'].unique()
     temp_mtrans=np.random.choice(mtrans_options)
-    mtrans = st.multiselect('Type of transport', options=mtrans_options)
+    mtrans = st.selectbox('Type of transport', options=mtrans_options, index=0)
     df_cat_to_predict.loc[1, "mtrans"] = mtrans
     
     ###
@@ -161,6 +162,13 @@ def main():
     #Predicción
     df_predict = pd.concat([df_cat_to_predict, df_num_predict], axis=1)
     df_predict[df_predict.select_dtypes(include=["bool"]).columns]=df_predict[df_predict.select_dtypes(include=["bool"]).columns].astype(int)
+    st.dataframe(df_predict)
+
+    #Nuevo dataframe para predicción
+    df_predict['gender']= df_predict['gender'].replace({'Male': 0, 'Female':1})
+
+
+
     result= rf.predict(df_predict)[0]
     st.dataframe(result)
 

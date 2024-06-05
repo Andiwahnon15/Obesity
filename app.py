@@ -156,13 +156,15 @@ def main():
     temp_bmi = (temp_weight / temp_height/ 100) ** 2
     df_num_predict.loc[1, "bmi"] = temp_bmi
 
-    # Determinar el color del texto en función del resultado
-    color = 'green'  # Por defecto, el color es verde
     if temp_bmi < 18.5:
-        color = 'yellow'  # Cambiar a amarillo si el IMC es bajo
-    elif temp_bmi > 25:
-        color = 'red'  # Cambiar a rojo si el IMC es alto
-    st.markdown(f'<p style="color:{color}">{temp_bmi}</p>', unsafe_allow_html=True)
+        st.write(f'Your BMI is {temp_bmi:.2f}. This indicates underweight.', unsafe_allow_html=True)
+        st.write('<span style="color: #e63946; font-size: 20px;">Bajo Peso</span>', unsafe_allow_html=True)
+    elif 18.5 <= temp_bmi < 25:
+        st.write(f'Your BMI is {temp_bmi:.2f}. This indicates normal weight.', unsafe_allow_html=True)
+        st.write('<span style="color: #a8dadc; font-size: 20px;">Peso Normal</span>', unsafe_allow_html=True)
+    else:
+        st.write(f'Your BMI is {temp_bmi:.2f}. This indicates overweight.', unsafe_allow_html=True)
+        st.write('<span style="color: #f4a261; font-size: 20px;">Sobrepeso</span>', unsafe_allow_html=True)
 
 # Python script entry point
 if __name__ == '__main__':

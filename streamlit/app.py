@@ -12,7 +12,7 @@ def main():
     import pandas as pd
     import numpy as np
     
-    df=carga_limpieza_data("config.yaml")
+    df=carga_limpieza_data("../config.yaml")
 
     potential_categorical_from_numerical = df.select_dtypes("number").loc[:, df.select_dtypes("number").nunique() < 20]
 

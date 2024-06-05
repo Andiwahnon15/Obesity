@@ -14,13 +14,9 @@ def carga_limpieza_data(yalm_path):
     #importamos los dataframes
     try:
         df = pd.read_csv(config['data']['df'], sep=",", header=0, low_memory=False)
-        return df
     except Exception as e:
         print('Error importando la data', e)
         
-    
-    #Hacemos que se vean rodas las columnas
-    pd.set_option('display.max_columns', None)
 
     #Quitamos las mayusculas 
     df.columns=df.columns.str.lower()
@@ -166,9 +162,7 @@ def machine_learning(df_final):
     # Cambiamos el dtype a integer
     features[features.select_dtypes(include=["bool"]).columns]=features[features.select_dtypes(include=["bool"]).columns].astype(int)
 
-    best_model = "max_depth=9, n_estimators=105"
-
-    rf = RandomForestClassifier(best_model)
+    rf = RandomForestClassifier(max_depth=9, n_estimators=105)
     rf.fit(features, target)
 
     return rf 

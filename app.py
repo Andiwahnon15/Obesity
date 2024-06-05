@@ -108,7 +108,30 @@ def main():
     mtrans = st.selectbox('Type of transport', options=mtrans_options, index=0)
     df_cat_to_predict.loc[1, "mtrans"] = mtrans
     
-    ###
+    #Creamos las columnas faltantes
+    new_columns = ['calc_Always','calc_Frequently',
+        'calc_Sometimes', 'calc_no','caec_Always','caec_Frequently', 'caec_Sometimes',
+        'caec_no','mtrans_Automobile','mtrans_Bike', 'mtrans_Motorbike',
+        'mtrans_Public_Transportation', 'mtrans_Walking']
+
+    # Añadimos las nuevas columnas
+    for col in new_columns:
+        df_cat_to_predict[col] = np.nan
+        
+    # Rellenamos las filas de las columnas nuevas con los datos aleatorios que se generen
+    df_cat_to_predict.loc[1, "calc_" + df_cat_to_predict['calc'][1]] = 1 
+    df_cat_to_predict.loc[1, "caec_" + df_cat_to_predict['caec'][1]] = 1 
+    df_cat_to_predict.loc[1, "mtrans_" + df_cat_to_predict['mtrans'][1]] = 1 
+        
+    # Eliminamos las columnas sobrantes 
+    df_cat_to_predict.drop(columns=['calc', 'caec', 'mtrans'], inplace=True)
+
+    # Rellenamos los Na con 0
+    df_cat_to_predict.fillna(0, inplace=True)
+        
+        
+        
+        ###
 
     # Creamos un nuevo dataframe para datos artificiales numericos
     df_num_predict = pd.DataFrame(columns= df_numerical.columns)
@@ -117,7 +140,7 @@ def main():
 
     st.markdown("##### Introduce your age")
     age_options= df_numerical['age'].unique()
-    temp_age = st.slider('Age', min_value=0, max_value=100, step=1)
+    temp_age = st.slider('Age', min_value=0, max_value=100, value=20, step=1)
     df_num_predict.loc[1, "age"] = temp_age
 
     st.markdown("##### Introduce your height")
@@ -152,7 +175,7 @@ def main():
 
     st.markdown("##### How much time do you use technological devices such as cell phone, videogames, television, computer and others?")
     tue_options= df_numerical['tue'].unique()
-    temp_tue = st.slider(' Hours', min_value=0, max_value=10, step=1)
+    temp_tue = st.slider(' Hours', min_value=0, max_value=10, value=5, step=1)
     df_num_predict.loc[1, "tue"] = temp_tue
 
     st.write('<h1 style="color: pink;">Results</h1>', unsafe_allow_html=True)
@@ -162,22 +185,19 @@ def main():
     #Predicción
     df_predict = pd.concat([df_cat_to_predict, df_num_predict], axis=1)
     df_predict[df_predict.select_dtypes(include=["bool"]).columns]=df_predict[df_predict.select_dtypes(include=["bool"]).columns].astype(int)
-    st.dataframe(df_predict)
+    
 
     #Nuevo dataframe para predicción
     df_predict['gender'] = df_predict['gender'].replace({'Male': 0, 'Female':1})
-    df_predict['calc'] = df_predict['calc'].replace({'no': 0, 'Sometimes': 1, 'Frequently': 2, 'Always': 3})
     df_predict['favc'] = df_predict['favc'].replace({'no': 0, 'yes': 1})
     df_predict['scc'] = df_predict['scc'].replace({'no': 0, 'yes': 1})
     df_predict['smoke'] = df_predict['smoke'].replace({'no': 0, 'yes': 1})
     df_predict['family_history'] = df_predict['family_history'].replace({'no': 0, 'yes': 1})
-    df_predict['caec'] = df_predict['caec'].replace({'no': 0, 'Sometimes': 1, 'Frequently': 2, 'Always': 3})
-    df_predict['mtrans'] = df_predict['mtrans'].replace({'Automobile': 0, 'Bike': 1, 'Motorbike': 2, 'Public Transportation': 3, 'Walking': 4})
 
-
+    st.dataframe(df_predict)
 
     result= rf.predict(df_predict)[0]
-    st.dataframe(result)
+    st.text(result)
 
     if result == 'Insufficient_Weight':
         st.write('<span style="color: #e63946; font-size: 20px;">Insufficient Weight</span>', unsafe_allow_html=True)

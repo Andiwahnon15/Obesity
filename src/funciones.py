@@ -24,6 +24,8 @@ def carga_limpieza_data(yalm_path):
     #Cambiamos los nombres de dos columnas "family_history_with_overweight" y "nobeyesdad"
     df=df.rename(columns={"family_history_with_overweight": "family_history", "nobeyesdad": "obesity_level"})
 
+    #Calculo el índice de masa corporal (IMC) por nivel de obesidad
+    df['bmi'] = df['weight'] / (df['height'] / 100) ** 2
     return df
 
 def grafico_genero(df):

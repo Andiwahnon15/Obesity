@@ -165,7 +165,14 @@ def main():
     st.dataframe(df_predict)
 
     #Nuevo dataframe para predicción
-    df_predict['gender']= df_predict['gender'].replace({'Male': 0, 'Female':1})
+    df_predict['gender'] = df_predict['gender'].replace({'Male': 0, 'Female':1})
+    df_predict['calc'] = df_predict['calc'].replace({'no': 0, 'Sometimes': 1, 'Frequently': 2, 'Always': 3})
+    df_predict['favc'] = df_predict['favc'].replace({'no': 0, 'yes': 1})
+    df_predict['scc'] = df_predict['scc'].replace({'no': 0, 'yes': 1})
+    df_predict['smoke'] = df_predict['smoke'].replace({'no': 0, 'yes': 1})
+    df_predict['family_history'] = df_predict['family_history'].replace({'no': 0, 'yes': 1})
+    df_predict['caec'] = df_predict['caec'].replace({'no': 0, 'Sometimes': 1, 'Frequently': 2, 'Always': 3})
+    df_predict['mtrans'] = df_predict['mtrans'].replace({'Automobile': 0, 'Bike': 1, 'Motorbike': 2, 'Public Transportation': 3, 'Walking': 4})
 
 
 

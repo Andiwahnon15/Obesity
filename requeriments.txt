@@ -7,3 +7,4 @@ numpy == 1.24.3
 streamlit == 1.30.0
 matplotlib == 3.8.0
 pillow == 3.12.00
+nbformat == 5.9.2

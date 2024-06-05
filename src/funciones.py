@@ -137,7 +137,7 @@ def preparar_data(df):
     df_numerical = df.select_dtypes("number").drop(columns=potential_categorical_from_numerical.columns)
 
     # Realizar One-Hot Encoding usando pd.get_dummies()
-    df_encoded = pd.get_dummies(df_categorical, columns=['calc', 'caec', 'mtrans'], drop_first=True)
+    df_encoded = pd.get_dummies(df_categorical, columns=['calc', 'caec', 'mtrans'], drop_first=False)
 
     # Convertir 'gender' a formato binario
     df_encoded['gender'] = df_encoded['gender'].apply(lambda x: 1 if x == 'Male' else 0)

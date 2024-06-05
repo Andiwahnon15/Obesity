@@ -1,12 +1,14 @@
 # app.py
 import streamlit as st  # Import Streamlit for creating web app
 from src.funciones import carga_limpieza_data, preparar_data, machine_learning
+from PIL import Image
 
 def main():
     
-    st.title('Want to know if you may be overweight?')  # Set the title of the web app
-    
+    #st.title('Want to know if you may be overweight?')  # Set the title of the web app
+    st.write('<h1 style="color: orange;">Want to know if you may be overweight?</h1>', unsafe_allow_html=True)
     st.info("#### Just fill in the following information and you will get the answer.")
+
     import pandas as pd
     import numpy as np
     
@@ -152,19 +154,48 @@ def main():
     temp_tue = st.slider(' Hours', min_value=0, max_value=10, step=1)
     df_num_predict.loc[1, "tue"] = temp_tue
 
-    st.markdown("## Results")
+    st.write('<h1 style="color: pink;">Results</h1>', unsafe_allow_html=True)
     temp_bmi = (temp_weight / temp_height/ 100) ** 2
     df_num_predict.loc[1, "bmi"] = temp_bmi
 
-    if temp_bmi < 18.5:
-        st.write(f'Your BMI is {temp_bmi:.2f}. This indicates underweight.', unsafe_allow_html=True)
-        st.write('<span style="color: #e63946; font-size: 20px;">Bajo Peso</span>', unsafe_allow_html=True)
-    elif 18.5 <= temp_bmi < 25:
-        st.write(f'Your BMI is {temp_bmi:.2f}. This indicates normal weight.', unsafe_allow_html=True)
-        st.write('<span style="color: #a8dadc; font-size: 20px;">Peso Normal</span>', unsafe_allow_html=True)
+    #Predicción
+    df_predict = pd.concat([df_cat_to_predict, df_num_predict], axis=1)
+    df_predict[df_predict.select_dtypes(include=["bool"]).columns]=df_predict[df_predict.select_dtypes(include=["bool"]).columns].astype(int)
+    result= rf.predict(df_predict)[0]
+    st.dataframe(result)
+
+    if result == 'Insufficient_Weight':
+        st.write('<span style="color: #e63946; font-size: 20px;">Insufficient Weight</span>', unsafe_allow_html=True)
+    elif result == 'Normal_Weight':
+        st.write('<span style="color: #a8dadc; font-size: 20px;">Normal Weight</span>', unsafe_allow_html=True)
+    elif result == 'Overweight_Level_I':
+        st.write('<span style="color: #a8dadc; font-size: 20px;">Overweight Level I</span>', unsafe_allow_html=True)
+    elif result == 'Overweight_Level_II':
+        st.write('<span style="color: #a8dadc; font-size: 20px;">Overweight Level II</span>', unsafe_allow_html=True)
+    elif result == 'Obesity_Type_I':
+        st.write('<span style="color: #a8dadc; font-size: 20px;">Obesity Type I</span>', unsafe_allow_html=True)
+    elif result == 'Obesity_Type_II':
+        st.write('<span style="color: #a8dadc; font-size: 20px;">Obesity Type II</span>', unsafe_allow_html=True)
     else:
-        st.write(f'Your BMI is {temp_bmi:.2f}. This indicates overweight.', unsafe_allow_html=True)
-        st.write('<span style="color: #f4a261; font-size: 20px;">Sobrepeso</span>', unsafe_allow_html=True)
+        st.write('<span style="color: #f4a261; font-size: 20px;">Obesity_Type_III</span>', unsafe_allow_html=True)
+
+    # Mostrar imagen en la barra lateral
+    #st.sidebar.image('alimentación-saludable.jpg', use_column_width=True)
+    
+    # Agregar las URLs de las imágenes desde Google Drive
+    #image_url_left = "https://drive.google.com/file/d/1Dk83VaD2v3uEhBcq7hu098uAjtNItmnL/view?usp=sharing"
+    #image_url_right = "https://drive.google.com/uc?export=download&id=1Dk83VaD2v3uEhBcq7hu098uAjtNItmnL"
+    """
+    # Mostrar las imágenes en los laterales
+    col1, col2 = st.columns(2)
+    with col1:
+        st.sidebar.image(image_url_left, use_column_width=True)
+
+    with col2:
+        st.sidebar.image(image_url_right, use_column_width=True)
+    """
+    #img = Image.open("alimentacion-saludable.png")
+    #st.sidebar.image(img, width=200)
 
 # Python script entry point
 if __name__ == '__main__':

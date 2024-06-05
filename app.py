@@ -83,40 +83,40 @@ def main():
 
     # Generamos datos aleatorios
     age_options= df_numerical['age'].unique()
-    temp_age = st.slider('Age', min_value=0, max_value=100, value=25, step=1)
+    temp_age = st.slider('Age', min_value=0, max_value=100, step=1)
     df_num_predict.loc[1, "age"] = temp_age
 
     height_options= df_numerical['height'].unique()
-    temp_height = st.slider('Height', min_value=0, max_value=10, value=2, step=1)
+    temp_height = st.slider('Height', min_value=0, max_value=10, step=1)
     df_num_predict.loc[1, "height"] = temp_height
 
     weight_options= df_numerical['weight'].unique()
-    temp_weight = st.slider('Weight', min_value=0, max_value=250, value=50, step=1)
+    temp_weight = st.slider('Weight', min_value=0, max_value=250, step=1)
     df_num_predict.loc[1, "weight"] = temp_weight
 
     st.markdown("### Do you usually eat vegetables in your meals?")
     fcvc_options= df_numerical['fcvc'].unique()
-    temp_fcvc = st.slider('Vegetables', min_value=0, max_value=20, value=5, step=1)
+    temp_fcvc = st.slider('Vegetables', min_value=0, max_value=20, step=1)
     df_num_predict.loc[1, "fcvc"] = temp_fcvc
 
     st.markdown("### How many main meals do you have daily?")
     ncp_options= df_numerical['ncp'].unique()
-    temp_ncp = st.slider('Meals', min_value=0, max_value=5, value=2, step=1)
+    temp_ncp = st.slider('Meals', min_value=0, max_value=5, step=1)
     df_num_predict.loc[1, "ncp"] = temp_ncp
 
     st.markdown("### How much water do you drink daily?")
     ch2o_options= df_numerical['ch2o'].unique()
-    temp_ch2o = st.slider('Drink Water', min_value=0, max_value=5, value=2, step=1)
+    temp_ch2o = st.slider('Drink Water', min_value=0, max_value=5, step=1)
     df_num_predict.loc[1, "ch2o"] = temp_ch2o
 
     st.markdown("### How often do you have physical activity?")
     faf_options= df_numerical['faf'].unique()
-    temp_faf = st.slider('Physical Activity', min_value=0, max_value=7, value=3, step=1)
+    temp_faf = st.slider('Physical Activity', min_value=0, max_value=7, step=1)
     df_num_predict.loc[1, "faf"] = temp_faf
 
     st.markdown("### How much time do you use technological devices such as cell phone, videogames, television, computer and others?")
     tue_options= df_numerical['tue'].unique()
-    temp_tue = st.slider(' Use Technological Devices', min_value=0, max_value=10, value=5, step=1)
+    temp_tue = st.slider(' Use Technological Devices', min_value=0, max_value=10, step=1)
     df_num_predict.loc[1, "tue"] = temp_tue
 
     st.markdown("### ")

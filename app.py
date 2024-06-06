@@ -13,7 +13,6 @@ def main():
 
     import pandas as pd
     import numpy as np
-    from PIL import Image
 
     df=carga_limpieza_data("config.yaml")
 
@@ -236,7 +235,7 @@ def main():
             st.write('<span style="color: white; font-size: 30px;">Obesity Type II</span>', unsafe_allow_html=True)
         else:
             st.write('<span style="color: red; font-size: 30px;">Obesity_Type_III</span>', unsafe_allow_html=True)
-            
+
     with col2:
         st.image("/Users/andre/OneDrive/Escritorio/Obesity1Conditions.png", use_column_width=True, caption='Consequences of Obesity')
     

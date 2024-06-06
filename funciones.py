@@ -78,9 +78,11 @@ def grafico_imc_nivel_obesidad(df):
     df['bmi'] = df['weight'] / (df['height'] / 100) ** 2
 
     # Distribución IMC por nivel de obesidad
-    plt.figure(figsize=(12, 8))
-    sns.violinplot(data=df, x='obesity_level', y='bmi')
-    plt.title('Distribución del IMC por Nivel de Obesidad')
+    plt.figure(figsize=(12, 6))
+    sns.barplot(data=df, x='obesity_level', y='bmi', palette='viridis')
+    plt.title('Distribución del IMC por Nivel de Obesidad', fontsize=12)
+    plt.xlabel('Nivel de Obesidad')
+    plt.ylabel('bmi')
     plt.show()
 
 def grafico_imc_consumo_agua(df):

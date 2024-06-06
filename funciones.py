@@ -111,7 +111,8 @@ def grafico_altura_peso(df):
     import seaborn as sns
     # Relación entre altura y peso
     plt.figure(figsize=(15, 10))
-    sns.scatterplot(data=df, x='height', y='weight', hue='obesity_level')
+    custom_palette = ["#FFA07A", "#20B2AA", "#FF6347", "#6A5ACD", "#1E90FF", "#9370DB"]  # Ejemplo de colores personalizados
+    scatterplot = sns.scatterplot(data=df, x='height', y='weight', hue='obesity_level', palette=custom_palette)
     plt.title('Relación entre Altura y Peso')
     plt.show()
 

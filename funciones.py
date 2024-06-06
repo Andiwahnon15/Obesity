@@ -37,7 +37,8 @@ def grafico_genero(df):
     #creamos gráfico circular para mostrar la proporción de géneros
     plt.figure(figsize=(10, 6))
     plt.subplot(1, 2, 1) 
-    plt.pie(gender, labels=gender.index, autopct='%1.1f%%', colors=sns.color_palette('Set3'))
+    custom_colors = ["#8A2BE2", "#1E90FF"]  # Colores personalizados (rojo y azul)
+    plt.pie(gender, labels=gender.index, autopct='%1.1f%%', colors=custom_colors)
     plt.title('Distribución de Género')
     plt.show()
 

@@ -219,28 +219,27 @@ def main():
     #Nuevas columnas
     col1, col2= st.columns(2)
     with col1:
-        st.write('<h1 style="color: pink;">Results</h1>', unsafe_allow_html=True)
+        st.write('<h1 style="color: pink;font-size: 70px;">Results</h1>', unsafe_allow_html=True)
         result= rf.predict(df_predict)[0]
         
         if result == 'Insufficient_Weight':
-            st.write('<span style="color: yellow; font-size: 20px;">Insufficient Weight</span>', unsafe_allow_html=True)
+            st.write('<span style="color: yellow; font-size: 30px;">Insufficient Weight</span>', unsafe_allow_html=True)
         elif result == 'Normal_Weight':
-            st.write('<span style="color: green; font-size: 20px;">Normal Weight</span>', unsafe_allow_html=True)
+            st.write('<span style="color: green; font-size: 30px;">Normal Weight</span>', unsafe_allow_html=True)
         elif result == 'Overweight_Level_I':
-            st.write('<span style="color: orange; font-size: 20px;">Overweight Level I</span>', unsafe_allow_html=True)
+            st.write('<span style="color: orange; font-size: 30px;">Overweight Level I</span>', unsafe_allow_html=True)
         elif result == 'Overweight_Level_II':
-            st.write('<span style="color: lila; font-size: 20px;">Overweight Level II</span>', unsafe_allow_html=True)
+            st.write('<span style="color: lila; font-size: 30px;">Overweight Level II</span>', unsafe_allow_html=True)
         elif result == 'Obesity_Type_I':
-            st.write('<span style="color: blue; font-size: 20px;">Obesity Type I</span>', unsafe_allow_html=True)
+            st.write('<span style="color: blue; font-size: 30px;">Obesity Type I</span>', unsafe_allow_html=True)
         elif result == 'Obesity_Type_II':
-            st.write('<span style="color: white; font-size: 20px;">Obesity Type II</span>', unsafe_allow_html=True)
+            st.write('<span style="color: white; font-size: 30px;">Obesity Type II</span>', unsafe_allow_html=True)
         else:
-            st.write('<span style="color: red; font-size: 20px;">Obesity_Type_III</span>', unsafe_allow_html=True)
+            st.write('<span style="color: red; font-size: 30px;">Obesity_Type_III</span>', unsafe_allow_html=True)
 
     with col2:
-        st.image("/Users/andre/OneDrive/Escritorio/Obesity1Conditions.png", use_column_width=True)
+        st.image("/Users/andre/OneDrive/Escritorio/Obesity1Conditions.png", use_column_width=True, caption='Consequences of Obesity')
     
-    st.sidebar.image('/Users/andre/OneDrive/Escritorio/ejercicio-saludable.jpg', use_column_width=True)
     # Ajustar el ancho de la página
     st.markdown(
         """

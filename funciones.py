@@ -44,9 +44,13 @@ def grafico_genero(df):
 def grafico_peso_genero(df):
     import matplotlib.pyplot as plt
     import seaborn as sns
-    # Distribución del Peso por Género
-    sns.boxplot(data=df, x='gender', y='weight')
+    # Gráfico de violín para mostrar la distribución del peso por género
+    plt.figure(figsize=(10, 6))
+    custom_palette = ["#FFC0CB", "#FF69B4"]  # Esquema de color rosa
+    violinplot = sns.violinplot(data=df, x='gender', y='weight', palette=custom_palette)
     plt.title('Distribución del Peso por Género')
+    plt.xlabel('Género')
+    plt.ylabel('Peso')
     plt.show()
 
 def grafico_edad(df):

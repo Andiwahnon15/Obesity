@@ -5,7 +5,7 @@ from funciones import carga_limpieza_data, preparar_data, machine_learning
 
 def main():
     st.set_page_config(page_title='Snowflake', layout='wide',
-                #    initial_sidebar_state=st.session_state.get('sidebar_state', 'collapsed'),
+                #initial_sidebar_state=st.session_state.get('sidebar_state', 'collapsed'),
     )
     #st.title('Want to know if you may be overweight?')  # Set the title of the web app
     st.write('<h1 style="color: orange;">Want to know if you may be overweight?</h1>', unsafe_allow_html=True)
@@ -141,7 +141,7 @@ def main():
     st.markdown("<hr>", unsafe_allow_html=True)
 
     # Generamos datos aleatorios
-
+    #Separo por columnas
     col1, col2, col3 = st.columns(3)
     with col1:
         st.markdown("##### Introduce your age")
@@ -176,15 +176,23 @@ def main():
         temp_ncp = st.slider('Meals', min_value=0, max_value=5, value=3, step=1)
         df_num_predict.loc[1, "ncp"] = temp_ncp
 
-    st.markdown("##### How much water do you drink daily?")
-    ch2o_options= df_numerical['ch2o'].unique()
-    temp_ch2o = st.slider('liters', min_value=0, max_value=5, value=2, step=1)
-    df_num_predict.loc[1, "ch2o"] = temp_ch2o
+    st.markdown("<hr>", unsafe_allow_html=True)
 
-    st.markdown("##### How often do you have physical activity?")
-    faf_options= df_numerical['faf'].unique()
-    temp_faf = st.slider('Days', min_value=0, max_value=7, value=3, step=1)
-    df_num_predict.loc[1, "faf"] = temp_faf
+    #Separo por columnas
+    col1, col2= st.columns(2)
+    with col1:
+        st.markdown("##### How much water do you drink daily?")
+        ch2o_options= df_numerical['ch2o'].unique()
+        temp_ch2o = st.slider('liters', min_value=0, max_value=5, value=2, step=1)
+        df_num_predict.loc[1, "ch2o"] = temp_ch2o
+
+    with col2:
+        st.markdown("##### How often do you have physical activity?")
+        faf_options= df_numerical['faf'].unique()
+        temp_faf = st.slider('Days', min_value=0, max_value=7, value=3, step=1)
+        df_num_predict.loc[1, "faf"] = temp_faf
+
+    st.markdown("<hr>", unsafe_allow_html=True)
 
     st.markdown("##### How much time do you use technological devices such as cell phone, videogames, television, computer and others?")
     tue_options= df_numerical['tue'].unique()

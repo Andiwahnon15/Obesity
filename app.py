@@ -1,17 +1,18 @@
 # app.py
 import streamlit as st  # Import Streamlit for creating web app
 from src.funciones import carga_limpieza_data, preparar_data, machine_learning
-from PIL import Image
+
 
 def main():
-    
+
     #st.title('Want to know if you may be overweight?')  # Set the title of the web app
     st.write('<h1 style="color: orange;">Want to know if you may be overweight?</h1>', unsafe_allow_html=True)
     st.info("#### Just fill in the following information and you will get the answer.")
 
     import pandas as pd
     import numpy as np
-    
+    from PIL import Image
+
     df=carga_limpieza_data("config.yaml")
 
     potential_categorical_from_numerical = df.select_dtypes("number").loc[:, df.select_dtypes("number").nunique() < 20]
@@ -212,24 +213,12 @@ def main():
     else:
         st.write('<span style="color: red; font-size: 20px;">Obesity_Type_III</span>', unsafe_allow_html=True)
 
-    # Mostrar imagen en la barra lateral
-    #st.sidebar.image('alimentación-saludable.jpg', use_column_width=True)
+    st.sidebar.image("/Users/andre/OneDrive/Escritorio/alimentacion-saludable.jpg", use_column_width=True)
     
-    # Agregar las URLs de las imágenes desde Google Drive
-    #image_url_left = "https://drive.google.com/file/d/1Dk83VaD2v3uEhBcq7hu098uAjtNItmnL/view?usp=sharing"
-    #image_url_right = "https://drive.google.com/uc?export=download&id=1Dk83VaD2v3uEhBcq7hu098uAjtNItmnL"
-    """
-    # Mostrar las imágenes en los laterales
-    col1, col2 = st.columns(2)
-    with col1:
-        st.sidebar.image(image_url_left, use_column_width=True)
-
-    with col2:
-        st.sidebar.image(image_url_right, use_column_width=True)
-    """
-    #img = Image.open("alimentacion-saludable.png")
-    #st.sidebar.image(img, width=200)
-
+    st.image('/Users/andre/OneDrive/Escritorio/ejercicio-saludable.jpg', use_column_width=True)
+    
+    # Cerrar el contenedor flex
+    st.markdown("</div>", unsafe_allow_html=True)
 # Python script entry point
 if __name__ == '__main__':
      main()  # Call the main function when the script is executed

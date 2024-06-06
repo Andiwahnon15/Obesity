@@ -199,7 +199,7 @@ def main():
     temp_tue = st.slider(' Hours', min_value=0, max_value=10, value=5, step=1)
     df_num_predict.loc[1, "tue"] = temp_tue
 
-    st.write('<h1 style="color: pink;">Results</h1>', unsafe_allow_html=True)
+    
     temp_bmi = (temp_weight / temp_height/ 100) ** 2
     df_num_predict.loc[1, "bmi"] = temp_bmi
 
@@ -215,25 +215,30 @@ def main():
     df_predict['smoke'] = df_predict['smoke'].replace({'no': 0, 'yes': 1})
     df_predict['family_history'] = df_predict['family_history'].replace({'no': 0, 'yes': 1})
 
-    result= rf.predict(df_predict)[0]
-    
+    st.markdown("<hr>", unsafe_allow_html=True)
+    #Nuevas columnas
+    col1, col2= st.columns(2)
+    with col1:
+        st.write('<h1 style="color: pink;">Results</h1>', unsafe_allow_html=True)
+        result= rf.predict(df_predict)[0]
+        
+        if result == 'Insufficient_Weight':
+            st.write('<span style="color: yellow; font-size: 20px;">Insufficient Weight</span>', unsafe_allow_html=True)
+        elif result == 'Normal_Weight':
+            st.write('<span style="color: green; font-size: 20px;">Normal Weight</span>', unsafe_allow_html=True)
+        elif result == 'Overweight_Level_I':
+            st.write('<span style="color: orange; font-size: 20px;">Overweight Level I</span>', unsafe_allow_html=True)
+        elif result == 'Overweight_Level_II':
+            st.write('<span style="color: lila; font-size: 20px;">Overweight Level II</span>', unsafe_allow_html=True)
+        elif result == 'Obesity_Type_I':
+            st.write('<span style="color: blue; font-size: 20px;">Obesity Type I</span>', unsafe_allow_html=True)
+        elif result == 'Obesity_Type_II':
+            st.write('<span style="color: white; font-size: 20px;">Obesity Type II</span>', unsafe_allow_html=True)
+        else:
+            st.write('<span style="color: red; font-size: 20px;">Obesity_Type_III</span>', unsafe_allow_html=True)
 
-    if result == 'Insufficient_Weight':
-        st.write('<span style="color: yellow; font-size: 20px;">Insufficient Weight</span>', unsafe_allow_html=True)
-    elif result == 'Normal_Weight':
-        st.write('<span style="color: green; font-size: 20px;">Normal Weight</span>', unsafe_allow_html=True)
-    elif result == 'Overweight_Level_I':
-        st.write('<span style="color: orange; font-size: 20px;">Overweight Level I</span>', unsafe_allow_html=True)
-    elif result == 'Overweight_Level_II':
-        st.write('<span style="color: lila; font-size: 20px;">Overweight Level II</span>', unsafe_allow_html=True)
-    elif result == 'Obesity_Type_I':
-        st.write('<span style="color: blue; font-size: 20px;">Obesity Type I</span>', unsafe_allow_html=True)
-    elif result == 'Obesity_Type_II':
-        st.write('<span style="color: white; font-size: 20px;">Obesity Type II</span>', unsafe_allow_html=True)
-    else:
-        st.write('<span style="color: red; font-size: 20px;">Obesity_Type_III</span>', unsafe_allow_html=True)
-
-    st.sidebar.image("/Users/andre/OneDrive/Escritorio/alimentacion-saludable.jpg", use_column_width=True)
+    with col2:
+        st.image("/Users/andre/OneDrive/Escritorio/Obesity1Conditions.png", use_column_width=True)
     
     st.sidebar.image('/Users/andre/OneDrive/Escritorio/ejercicio-saludable.jpg', use_column_width=True)
     # Ajustar el ancho de la página

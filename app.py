@@ -140,37 +140,37 @@ def main():
 
     st.markdown("##### Introduce your age")
     age_options= df_numerical['age'].unique()
-    temp_age = st.slider('Age', min_value=0, max_value=100, value=20, step=1)
+    temp_age = st.slider('Age', min_value=0, max_value=100, value=25, step=1)
     df_num_predict.loc[1, "age"] = temp_age
 
     st.markdown("##### Introduce your height")
     height_options= df_numerical['height'].unique()
-    temp_height = st.slider('cm', min_value=1.0, max_value=3.0, step=0.1)
+    temp_height = st.slider('cm', min_value=1.0, max_value=3.0, value=1.70, step=0.1)
     df_num_predict.loc[1, "height"] = temp_height
 
     st.markdown("##### Introduce your weight")
     weight_options= df_numerical['weight'].unique()
-    temp_weight = st.slider('kg', min_value=0, max_value=250, step=1)
+    temp_weight = st.slider('kg', min_value=0, max_value=250, value=80, step=1)
     df_num_predict.loc[1, "weight"] = temp_weight
 
     st.markdown("##### Do you usually eat vegetables in your meals?")
     fcvc_options= df_numerical['fcvc'].unique()
-    temp_fcvc = st.slider('Vegetables', min_value=0, max_value=5, step=1)
+    temp_fcvc = st.slider('Vegetables', min_value=0, max_value=5, value=2, step=1)
     df_num_predict.loc[1, "fcvc"] = temp_fcvc
 
     st.markdown("##### How many main meals do you have daily?")
     ncp_options= df_numerical['ncp'].unique()
-    temp_ncp = st.slider('Meals', min_value=0, max_value=5, step=1)
+    temp_ncp = st.slider('Meals', min_value=0, max_value=5, value=3, step=1)
     df_num_predict.loc[1, "ncp"] = temp_ncp
 
     st.markdown("##### How much water do you drink daily?")
     ch2o_options= df_numerical['ch2o'].unique()
-    temp_ch2o = st.slider('liters', min_value=0, max_value=5, step=1)
+    temp_ch2o = st.slider('liters', min_value=0, max_value=5, value=2, step=1)
     df_num_predict.loc[1, "ch2o"] = temp_ch2o
 
     st.markdown("##### How often do you have physical activity?")
     faf_options= df_numerical['faf'].unique()
-    temp_faf = st.slider('Days', min_value=0, max_value=7, step=1)
+    temp_faf = st.slider('Days', min_value=0, max_value=7, value=3, step=1)
     df_num_predict.loc[1, "faf"] = temp_faf
 
     st.markdown("##### How much time do you use technological devices such as cell phone, videogames, television, computer and others?")
@@ -194,25 +194,23 @@ def main():
     df_predict['smoke'] = df_predict['smoke'].replace({'no': 0, 'yes': 1})
     df_predict['family_history'] = df_predict['family_history'].replace({'no': 0, 'yes': 1})
 
-    st.dataframe(df_predict)
-
     result= rf.predict(df_predict)[0]
-    st.text(result)
+    
 
     if result == 'Insufficient_Weight':
-        st.write('<span style="color: #e63946; font-size: 20px;">Insufficient Weight</span>', unsafe_allow_html=True)
+        st.write('<span style="color: yellow; font-size: 20px;">Insufficient Weight</span>', unsafe_allow_html=True)
     elif result == 'Normal_Weight':
-        st.write('<span style="color: #a8dadc; font-size: 20px;">Normal Weight</span>', unsafe_allow_html=True)
+        st.write('<span style="color: green; font-size: 20px;">Normal Weight</span>', unsafe_allow_html=True)
     elif result == 'Overweight_Level_I':
-        st.write('<span style="color: #a8dadc; font-size: 20px;">Overweight Level I</span>', unsafe_allow_html=True)
+        st.write('<span style="color: orange; font-size: 20px;">Overweight Level I</span>', unsafe_allow_html=True)
     elif result == 'Overweight_Level_II':
-        st.write('<span style="color: #a8dadc; font-size: 20px;">Overweight Level II</span>', unsafe_allow_html=True)
+        st.write('<span style="color: lila; font-size: 20px;">Overweight Level II</span>', unsafe_allow_html=True)
     elif result == 'Obesity_Type_I':
-        st.write('<span style="color: #a8dadc; font-size: 20px;">Obesity Type I</span>', unsafe_allow_html=True)
+        st.write('<span style="color: blue; font-size: 20px;">Obesity Type I</span>', unsafe_allow_html=True)
     elif result == 'Obesity_Type_II':
-        st.write('<span style="color: #a8dadc; font-size: 20px;">Obesity Type II</span>', unsafe_allow_html=True)
+        st.write('<span style="color: white; font-size: 20px;">Obesity Type II</span>', unsafe_allow_html=True)
     else:
-        st.write('<span style="color: #f4a261; font-size: 20px;">Obesity_Type_III</span>', unsafe_allow_html=True)
+        st.write('<span style="color: red; font-size: 20px;">Obesity_Type_III</span>', unsafe_allow_html=True)
 
     # Mostrar imagen en la barra lateral
     #st.sidebar.image('alimentación-saludable.jpg', use_column_width=True)

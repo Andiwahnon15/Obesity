@@ -1,10 +1,12 @@
 # app.py
 import streamlit as st  # Import Streamlit for creating web app
-from src.funciones import carga_limpieza_data, preparar_data, machine_learning
+from funciones import carga_limpieza_data, preparar_data, machine_learning
 
 
 def main():
-
+    st.set_page_config(page_title='Snowflake', layout='wide',
+                #    initial_sidebar_state=st.session_state.get('sidebar_state', 'collapsed'),
+    )
     #st.title('Want to know if you may be overweight?')  # Set the title of the web app
     st.write('<h1 style="color: orange;">Want to know if you may be overweight?</h1>', unsafe_allow_html=True)
     st.info("#### Just fill in the following information and you will get the answer.")
@@ -131,38 +133,48 @@ def main():
     df_cat_to_predict.fillna(0, inplace=True)
         
         
-        
         ###
 
     # Creamos un nuevo dataframe para datos artificiales numericos
     df_num_predict = pd.DataFrame(columns= df_numerical.columns)
 
+    st.markdown("<hr>", unsafe_allow_html=True)
+
     # Generamos datos aleatorios
 
-    st.markdown("##### Introduce your age")
-    age_options= df_numerical['age'].unique()
-    temp_age = st.slider('Age', min_value=0, max_value=100, value=25, step=1)
-    df_num_predict.loc[1, "age"] = temp_age
+    col1, col2, col3 = st.columns(3)
+    with col1:
+        st.markdown("##### Introduce your age")
+        age_options= df_numerical['age'].unique()
+        temp_age = st.slider('Age', min_value=0, max_value=100, value=25, step=1)
+        df_num_predict.loc[1, "age"] = temp_age
 
-    st.markdown("##### Introduce your height")
-    height_options= df_numerical['height'].unique()
-    temp_height = st.slider('cm', min_value=1.0, max_value=3.0, value=1.70, step=0.1)
-    df_num_predict.loc[1, "height"] = temp_height
+    st.markdown("<hr>", unsafe_allow_html=True)
 
-    st.markdown("##### Introduce your weight")
-    weight_options= df_numerical['weight'].unique()
-    temp_weight = st.slider('kg', min_value=0, max_value=250, value=80, step=1)
-    df_num_predict.loc[1, "weight"] = temp_weight
+    with col2:
+        st.markdown("##### Introduce your height")
+        height_options= df_numerical['height'].unique()
+        temp_height = st.slider('cm', min_value=1.0, max_value=3.0, value=1.70, step=0.1)
+        df_num_predict.loc[1, "height"] = temp_height
+    with col3:
+        st.markdown("##### Introduce your weight")
+        weight_options= df_numerical['weight'].unique()
+        temp_weight = st.slider('kg', min_value=0, max_value=250, value=80, step=1)
+        df_num_predict.loc[1, "weight"] = temp_weight
 
-    st.markdown("##### Do you usually eat vegetables in your meals?")
-    fcvc_options= df_numerical['fcvc'].unique()
-    temp_fcvc = st.slider('Vegetables', min_value=0, max_value=5, value=2, step=1)
-    df_num_predict.loc[1, "fcvc"] = temp_fcvc
+    #Separo por columnas
+    col1, col2= st.columns(2)
+    with col1:
+        st.markdown("##### Do you usually eat vegetables in your meals?")
+        fcvc_options= df_numerical['fcvc'].unique()
+        temp_fcvc = st.slider('Vegetables', min_value=0, max_value=5, value=2, step=1)
+        df_num_predict.loc[1, "fcvc"] = temp_fcvc
 
-    st.markdown("##### How many main meals do you have daily?")
-    ncp_options= df_numerical['ncp'].unique()
-    temp_ncp = st.slider('Meals', min_value=0, max_value=5, value=3, step=1)
-    df_num_predict.loc[1, "ncp"] = temp_ncp
+    with col2:
+        st.markdown("##### How many main meals do you have daily?")
+        ncp_options= df_numerical['ncp'].unique()
+        temp_ncp = st.slider('Meals', min_value=0, max_value=5, value=3, step=1)
+        df_num_predict.loc[1, "ncp"] = temp_ncp
 
     st.markdown("##### How much water do you drink daily?")
     ch2o_options= df_numerical['ch2o'].unique()
@@ -215,10 +227,28 @@ def main():
 
     st.sidebar.image("/Users/andre/OneDrive/Escritorio/alimentacion-saludable.jpg", use_column_width=True)
     
-    st.image('/Users/andre/OneDrive/Escritorio/ejercicio-saludable.jpg', use_column_width=True)
+    st.sidebar.image('/Users/andre/OneDrive/Escritorio/ejercicio-saludable.jpg', use_column_width=True)
+    # Ajustar el ancho de la página
+    st.markdown(
+        """
+        <style>
+        .css-18e3th9 {
+            padding-top: 0;
+            padding-bottom: 0;
+            padding-left: 1rem;
+            padding-right: 1rem;
+        }
+        .css-1d391kg {
+            padding-top: 0;
+            padding-right: 1rem;
+            padding-bottom: 0;
+            padding-left: 1rem;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
     
-    # Cerrar el contenedor flex
-    st.markdown("</div>", unsafe_allow_html=True)
 # Python script entry point
 if __name__ == '__main__':
      main()  # Call the main function when the script is executed

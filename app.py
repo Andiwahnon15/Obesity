@@ -49,7 +49,7 @@ def main():
         st.markdown("##### How often do you drink alcohol?")
         calc_options = df_categorical['calc'].unique()
         temp_calc = np.random.choice(calc_options)
-        calc = st.selectbox('Alcohol', options=calc_options, index=0)
+        calc = st.selectbox('Alcohol', options=calc_options, index=1)
         df_cat_to_predict.loc[1, "calc"] = calc
 
     st.markdown("<hr>", unsafe_allow_html=True)
@@ -80,7 +80,7 @@ def main():
         st.markdown("##### Do you smoke?")
         smoke_options= df_categorical['smoke'].unique()
         temp_smoke=np.random.choice(smoke_options)
-        smoke = st.selectbox('Smoke', options=smoke_options, index=0)
+        smoke = st.selectbox('Smoke', options=smoke_options, index=1)
         df_cat_to_predict.loc[1, "smoke"] = smoke
 
     #Creamos las columnas
@@ -91,7 +91,7 @@ def main():
         st.markdown("##### Your family suffers from obesity?")
         family_history_options= df_categorical['family_history'].unique()
         temp_family_history=np.random.choice(family_history_options)
-        family_history = st.selectbox('Family history obesity', options=family_history_options, index=0)
+        family_history = st.selectbox('Family history obesity', options=family_history_options, index=1)
         df_cat_to_predict.loc[1, "family_history"] = family_history
 
     st.markdown("<hr>", unsafe_allow_html=True)
@@ -153,12 +153,12 @@ def main():
     with col2:
         st.markdown("##### Introduce your height")
         height_options= df_numerical['height'].unique()
-        temp_height = st.slider('cm', min_value=1.0, max_value=3.0, value=1.70, step=0.1)
+        temp_height = st.slider('cm', min_value=1.0, max_value=3.0, value=1.60, step=0.1)
         df_num_predict.loc[1, "height"] = temp_height
     with col3:
         st.markdown("##### Introduce your weight")
         weight_options= df_numerical['weight'].unique()
-        temp_weight = st.slider('kg', min_value=0, max_value=250, value=80, step=1)
+        temp_weight = st.slider('kg', min_value=0, max_value=250, value=100, step=1)
         df_num_predict.loc[1, "weight"] = temp_weight
 
     #Separo por columnas
@@ -188,7 +188,7 @@ def main():
     with col2:
         st.markdown("##### How often do you have physical activity?")
         faf_options= df_numerical['faf'].unique()
-        temp_faf = st.slider('Days', min_value=0, max_value=7, value=3, step=1)
+        temp_faf = st.slider('Days', min_value=0, max_value=7, value=2, step=1)
         df_num_predict.loc[1, "faf"] = temp_faf
 
     st.markdown("<hr>", unsafe_allow_html=True)

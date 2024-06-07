@@ -68,7 +68,7 @@ def grafico_edad_peso(df):
     plt.figure(figsize=(10, 6))
     hexplot = plt.hexbin(x=df['weight'], y=df['age'], gridsize=20, cmap='Purples', linewidths=0.5)
     plt.colorbar(label='Frecuencia')
-    plt.title('Distribución conjunta de Edad y Peso')
+    plt.title('Distribución de Edad y Peso')
     plt.xlabel('Peso')
     plt.ylabel('Edad')
     plt.show()
